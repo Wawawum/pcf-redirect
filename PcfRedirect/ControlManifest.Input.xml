@@ -25,6 +25,7 @@
       -->
     </data-set>
     <property name="url" display-name-key="URL" description-key="The URL to be redirected to." of-type="SingleLine.Text" usage="input" required="true" />
+    <property name="delay" display-name-key="Delay" description-key="The delay in milliseconds before the user gets redirected. Specify 0 to redirect immediately. Default is 500." of-type="Whole.None" usage="input" required="false" />
     <resources>
       <code path="index.ts" order="1"/>
       <css path="scss/Main.css" order="1" />

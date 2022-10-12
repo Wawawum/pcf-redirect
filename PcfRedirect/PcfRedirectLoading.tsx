@@ -7,5 +7,4 @@ export function PcfRedirectLoading(): JSX.Element {
             <span className="visually-hidden">Loading...</span>
         </div>
     </div>
-
 }

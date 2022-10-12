@@ -1,12 +1,15 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
-import DataSetInterfaces = ComponentFramework.PropertyHelper.DataSetApi;
-type DataSet = ComponentFramework.PropertyTypes.DataSet;
 import { PcfRedirectLoading } from './PcfRedirectLoading';
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 
+const CONSTANTS = {
+    DEFAULT_DELAY: 500
+};
+
 export class PcfRedirect implements ComponentFramework.StandardControl<IInputs, IOutputs> {
     private _container: HTMLDivElement;
+    private _timeoutId: number | null = null;
 
     /**
      * Empty constructor.
@@ -33,9 +36,16 @@ export class PcfRedirect implements ComponentFramework.StandardControl<IInputs, 
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
      */
     public updateView(context: ComponentFramework.Context<IInputs>): void {
-        const url = context.parameters.url.raw;
+        const url = context.parameters.url?.raw;
+        let delay = context.parameters.delay?.raw;
+
         if (url !== null) {
-            window.setTimeout(() => { window.location.assign(url) }, 500);
+            if (delay === null || delay < 0)
+                delay = CONSTANTS.DEFAULT_DELAY;
+
+            this.clearTimeout();
+
+            this._timeoutId = window.setTimeout(() => { window.location.assign(url) }, delay);
 
             const root = createRoot(this._container);
             root.render(React.createElement(PcfRedirectLoading));
@@ -55,7 +65,16 @@ export class PcfRedirect implements ComponentFramework.StandardControl<IInputs, 
      * i.e. cancelling any pending remote calls, removing listeners, etc.
      */
     public destroy(): void {
-        // Add code to cleanup control if necessary
+
+        this.clearTimeout();
     }
 
+    /**
+     * Clears the delay timeout if it has been set.
+     */
+    private clearTimeout(): void {
+        if (this._timeoutId !== null) {
+            window.clearTimeout(this._timeoutId);
+        }
+    }
 }
