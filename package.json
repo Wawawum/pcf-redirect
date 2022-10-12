@@ -12,13 +12,19 @@
     "rebuild": "pcf-scripts rebuild",
     "start": "pcf-scripts start",
     "refreshTypes": "pcf-scripts refreshTypes",
-    "pushPCF": "pac pcf push --pp www"
+    "pushPCF": "sass PcfRedirect/scss/Main.scss PcfRedirect/scss/Main.css && pcf-scripts build && pac pcf push --publisher-prefix www && pac solution publish",
+    "sass": "sass PcfRedirect/scss/Main.scss PcfRedirect/scss/Main.css"
   },
   "dependencies": {
+    "bootstrap": "^5.2.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^16.4",
     "@types/powerapps-component-framework": "^1.3.0",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
     "eslint": "^7.32.0",
@@ -27,6 +33,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "pcf-scripts": "^1",
     "pcf-start": "^1",
+    "sass": "^1.55.0",
     "typescript": "^4.3"
   }
 }
