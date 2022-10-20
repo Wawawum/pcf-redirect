@@ -13,7 +13,8 @@
     "start": "pcf-scripts start",
     "refreshTypes": "pcf-scripts refreshTypes",
     "pushPCF": "sass PcfRedirect/scss/Main.scss PcfRedirect/scss/Main.css && pcf-scripts build && pac pcf push --publisher-prefix www && pac solution publish",
-    "sass": "sass PcfRedirect/scss/Main.scss PcfRedirect/scss/Main.css"
+    "sass": "sass PcfRedirect/scss/Main.scss PcfRedirect/scss/Main.css",
+    "lint": "eslint . --ext .tsx --ext .ts"
   },
   "dependencies": {
     "bootstrap": "^5.2.2",
